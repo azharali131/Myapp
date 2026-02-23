@@ -3,6 +3,7 @@ const ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
+  '/icon.png',
   '/audio/azan1.mp3',
   '/audio/azan2.mp3',
   '/audio/Azan.mp3'
