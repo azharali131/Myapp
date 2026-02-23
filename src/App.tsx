@@ -49,6 +49,26 @@ export default function App() {
   const [now, setNow] = useState(new Date());
   const audioCtxRef = useRef<AudioContext | null>(null);
   const lastBeepSecondRef = useRef<number | null>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    });
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        setDeferredPrompt(null);
+      }
+    } else {
+      alert("To use as a Widget:\n1. Open this app in Chrome on Android.\n2. Tap the 3 dots (menu).\n3. Tap 'Install App' or 'Add to Home Screen'.\n4. Once installed, it will appear as an app on your home screen.");
+    }
+  };
 
   // Audio Helpers
   const initAudio = () => {
@@ -125,7 +145,7 @@ export default function App() {
 
     let audioPath = '';
     if (selectedAzan === 1) {
-      audioPath = 'Myapp/audio/azan1.mp3';
+      audioPath = '/audio/azan1.mp3';
     } else if (selectedAzan === 2) {
       audioPath = '/audio/azan2.mp3';
     } else if (selectedAzan === 3) {
@@ -459,11 +479,11 @@ export default function App() {
 
                     <MenuLink icon={<Share2 size={18} />} label="Share App" />
                     <button 
-                      onClick={() => alert("To use as a Widget:\n1. Open this app in Chrome on Android.\n2. Tap the 3 dots (menu).\n3. Tap 'Install App' or 'Add to Home Screen'.\n4. Once installed, it will appear as an app on your home screen.")}
+                      onClick={handleInstallClick}
                       className="w-full flex items-center gap-3 p-3 rounded-xl font-bold text-ramadan-gold/80 hover:text-ramadan-gold hover:bg-white/5 transition-all text-sm"
                     >
                       <Maximize2 size={18} />
-                      <span>Install as Widget</span>
+                      <span>{deferredPrompt ? 'Install App' : 'Install as Widget'}</span>
                     </button>
                     <MenuLink icon={<MessageSquare size={18} />} label="Feedback" />
                     <MenuLink icon={<Info size={18} />} label="About Ramadan" />
@@ -634,6 +654,28 @@ export default function App() {
                           </button>
                         </div>
                       </div>
+                    </div>
+
+                    <div className="bg-white/5 rounded-2xl p-4 border border-ramadan-gold/20 space-y-4">
+                      <div className="text-ramadan-gold font-black text-xs uppercase tracking-widest mb-2">Debug Tools</div>
+                      <button 
+                        onClick={async () => {
+                          const files = ['/audio/azan1.mp3', '/audio/azan2.mp3', '/audio/Azan.mp3'];
+                          let results = "Audio Status:\n";
+                          for (const f of files) {
+                            try {
+                              const res = await fetch(f, { method: 'HEAD' });
+                              results += `${f}: ${res.ok ? '✅ Found' : '❌ Not Found (' + res.status + ')'}\n`;
+                            } catch (e) {
+                              results += `${f}: ❌ Error\n`;
+                            }
+                          }
+                          alert(results);
+                        }}
+                        className="w-full py-2 bg-white/10 text-ramadan-gold rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-white/20 transition-colors"
+                      >
+                        Check Audio Files Status
+                      </button>
                     </div>
 
                     <button 
