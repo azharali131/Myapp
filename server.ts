@@ -10,9 +10,11 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // Serve the "backend" folder statically
-  // This is where the user will paste their mp3 files
-  app.use("/audio", express.static(path.join(__dirname, "backend/audio")));
+  // Serve audio from multiple possible locations
+  // 1. public/audio (for bundled files)
+  // 2. audio (at root, for manual uploads)
+  app.use("/audio", express.static(path.join(__dirname, "public/audio")));
+  app.use("/audio", express.static(path.join(__dirname, "audio")));
 
   // API routes can go here
   app.get("/api/health", (req, res) => {

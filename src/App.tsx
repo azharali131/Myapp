@@ -135,6 +135,7 @@ export default function App() {
     }
 
     if (audioPath) {
+      console.log("Attempting to play Azan from:", audioPath);
       if (selectedAzan === 4) {
         // Play beep before online azan
         playBeep(1);
@@ -457,6 +458,13 @@ export default function App() {
                     </button>
 
                     <MenuLink icon={<Share2 size={18} />} label="Share App" />
+                    <button 
+                      onClick={() => alert("To use as a Widget:\n1. Open this app in Chrome on Android.\n2. Tap the 3 dots (menu).\n3. Tap 'Install App' or 'Add to Home Screen'.\n4. Once installed, it will appear as an app on your home screen.")}
+                      className="w-full flex items-center gap-3 p-3 rounded-xl font-bold text-ramadan-gold/80 hover:text-ramadan-gold hover:bg-white/5 transition-all text-sm"
+                    >
+                      <Maximize2 size={18} />
+                      <span>Install as Widget</span>
+                    </button>
                     <MenuLink icon={<MessageSquare size={18} />} label="Feedback" />
                     <MenuLink icon={<Info size={18} />} label="About Ramadan" />
                   </>

@@ -4,8 +4,25 @@
   "description": "Ramadan 1447 AH calendar with real-time countdowns and audio alerts.",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0a472e",
   "theme_color": "#0a472e",
+  "shortcuts": [
+    {
+      "name": "Today's Timings",
+      "short_name": "Timings",
+      "description": "View today's Sehri and Iftar times",
+      "url": "/?view=timings",
+      "icons": [{ "src": "https://picsum.photos/192/192", "sizes": "192x192" }]
+    },
+    {
+      "name": "Sehri Alarm",
+      "short_name": "Alarm",
+      "description": "Set your Sehri wake-up alarm",
+      "url": "/?view=alarm",
+      "icons": [{ "src": "https://picsum.photos/192/192", "sizes": "192x192" }]
+    }
+  ],
   "icons": [
     {
       "src": "https://picsum.photos/192/192",
