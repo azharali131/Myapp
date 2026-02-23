@@ -125,7 +125,7 @@ export default function App() {
 
     let audioPath = '';
     if (selectedAzan === 1) {
-      audioPath = '/audio/azan1.mp3';
+      audioPath = 'Myapp/audio/azan1.mp3';
     } else if (selectedAzan === 2) {
       audioPath = '/audio/azan2.mp3';
     } else if (selectedAzan === 3) {
