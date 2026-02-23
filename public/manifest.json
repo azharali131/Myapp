@@ -1,0 +1,21 @@
+{
+  "name": "Ramadan 2026 Calendar",
+  "short_name": "Ramadan 2026",
+  "description": "Ramadan 1447 AH calendar with real-time countdowns and audio alerts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a472e",
+  "theme_color": "#0a472e",
+  "icons": [
+    {
+      "src": "https://picsum.photos/192/192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://picsum.photos/512/512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
